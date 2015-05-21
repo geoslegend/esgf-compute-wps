@@ -19,7 +19,7 @@ app.conf.update(
 def createDomain( pIndex, domainSpec ):
     domainSpec['pIndex'] = pIndex
     logger.debug( 'app.task: createDomain[%d]: %s ' % (pIndex, str(domainSpec) ))
-    logger.debug( 'Task: %s ' % ( app.current_task.__class__.__name__ ))
+    logger.debug( 'Task: %s, request methods: (%s) ' % ( createDomain.request.id, str(dir(createDomain.request)) ))
     return createDomain.createDomain( pIndex, domainSpec )
 
 @app.task(base=DomainBasedTask,name='tasks.removeDomain')

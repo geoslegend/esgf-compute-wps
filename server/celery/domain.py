@@ -53,27 +53,38 @@ class Domain(object):
 
     def __init__(self, spec ):
         self.id = spec['id']
-        self.pIndex = spec['pIndex']
+        self.timePartIndex = spec.get('tIndex',None)
         self.roi = spec.get( 'roi', None )
         self.time = spec.get( 'time', None )
         self.grid = spec.get( 'grid', None )
         self.variables = {}
-        logger.info( 'Create Domain[%d]: spec: %s' % (self.pIndex, str(spec) ) )
+        logger.info( 'Create Domain: spec: %s' % ( str(spec) ) )
 
     def __repr__(self):
         return "Domain[%s] { roi: %s, grid: %s, time: %s } ( Variables: %s )" % ( self.id, self.roi, self.grid, self.time, self.variables.keys() )
 
     def add_variable( self, varId, variable, **args ):
-        if self.time <> None:
+        part_variable = variable
+        if (self.time <> None):
             data_start = self.time['start'].split('-')
-            part_time_step = self.time.get('step',1)
-            part_time_units = get_cdtime_units( self.time['units'] )
             data_start_ct = cdtime.comptime( *[int(tok) for tok in data_start]  )
-            partition_start_ct = data_start_ct.add( self.pIndex*part_time_step, part_time_units )
-            partition_end_ct = partition_start_ct.add( part_time_step, part_time_units )
-            logger.info( 'Domain[%d]: addVariable: %s -> %s' % (self.pIndex, str(partition_start_ct), str(partition_end_ct) ))
-            part_variable = variable( time=( partition_start_ct, partition_end_ct, 'co') )
-            self.variables[varId] = part_variable
+            if (self.timePartIndex is not None):
+                part_time_step = self.time.get('step',1)
+                part_time_units = get_cdtime_units( self.time['units'] )
+                partition_start_ct = data_start_ct.add( self.timePartIndex*part_time_step, part_time_units )
+                partition_end_ct = partition_start_ct.add( part_time_step, part_time_units )
+#                logger.info( 'Domain[%d]: addVariable: %s -> %s' % (self.timePartIndex, str(partition_start_ct), str(partition_end_ct) ))
+                part_variable = variable( time=( partition_start_ct, partition_end_ct, 'co') )
+            else:
+                part_time_step = self.time.get('step', None )
+                if part_time_step is not None:
+                    part_time_units = get_cdtime_units( self.time['units'] )
+                    partition_start_ct = data_start_ct
+                    partition_end_ct = partition_start_ct.add( part_time_step, part_time_units )
+                    part_variable = variable( time=( partition_start_ct, partition_end_ct, 'co') )
+
+#        logger.info( 'Add variable, part shape: %s (original shape: %s)' % ( str(part_variable.shape), str(variable.shape) ) )
+        self.variables[varId] = part_variable
 
     def remove_variable( self, varId ):
         try:
