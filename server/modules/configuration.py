@@ -11,7 +11,7 @@ CDAS_DEFAULT_NUM_NODES = 1
 CDAS_STAGING = 'local'
 #CDAS_STAGING = 'celery'
 
-CDAS_COMPUTE_ENGINE = 'mpi'
+CDAS_COMPUTE_ENGINE = 'multiproc'
 
 #CDAS_OUTGOING_DATA_DIR='/Developer/Projects/EclipseWorkspace/CreateV/source/climateinspector/web/data'
 CDAS_OUTGOING_DATA_DIR='/usr/local/web/WPCDAS/clients/web/htdocs/data'
@@ -24,12 +24,12 @@ CDAS_DATA_CACHE = 'default'
 CDAS_CELERY_BACKEND = 'redis'
 # Application definition
 
-CDAS_COLLECTIONS = [ ('MERRA/mon/atmos',       { 'type':'dods', 'url':'http://dptomcat01.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/MERRA/mon/atmos/' } ),
-                     ('CFSR/mon/atmos',        { 'type':'dods', 'url':'http://dptomcat01.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/CFSR/mon/atmos' } ),
-                     ('ECMWF/mon/atmos',       { 'type':'dods', 'url':'http://dptomcat01.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/ECMWF/mon/atmos' } ),
-                     ('MERRA/6hr/atmos',       { 'type':'dods', 'url':'http://dptomcat01.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/MERRA/6hr/atmos' } ),
-                     ('CFSR/6hr/atmos',        { 'type':'dods', 'url':'http://dptomcat01.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/CFSR/6hr/atmos' } ),
-                     ('ECMWF/6hr/atmos',       { 'type':'dods', 'url':'http://dptomcat01.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/ECMWF/6hr/atmos' } ),
+CDAS_COLLECTIONS = [ ('MERRA/mon/atmos',       { 'type':'dods', 'url':'http://dataserver.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/MERRA/mon/atmos' } ),
+                     ('CFSR/mon/atmos',        { 'type':'dods', 'url':'http://dataserver.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/CFSR/mon/atmos' } ),
+                     ('ECMWF/mon/atmos',       { 'type':'dods', 'url':'http://dataserver.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/ECMWF/mon/atmos' } ),
+                     ('MERRA/6hr/atmos',       { 'type':'dods', 'url':'http://dataserver.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/MERRA/6hr/atmos' } ),
+                     ('CFSR/6hr/atmos',        { 'type':'dods', 'url':'http://dataserver.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/CFSR/6hr/atmos' } ),
+                     ('ECMWF/6hr/atmos',       { 'type':'dods', 'url':'http://dataserver.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/ECMWF/6hr/atmos' } ),
                      ('MERRA/mon/atmos/ta',    { 'type':'file', 'url':'/usr/local/web/WPCDAS/data/atmos_ta.nc' } ),
                      ('MERRA/mon/atmos/ua',    { 'type':'file', 'url':'/usr/local/web/WPCDAS/data/atmos_ua.nc' } ),
                      ]

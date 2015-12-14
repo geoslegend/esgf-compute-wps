@@ -1,7 +1,7 @@
 import cPickle
 
 from engines.communicator import ComputeEngineCommunicator, TaskMonitor
-from engines.legacy.multiprocEngine.tasks import worker_manager
+from engines.multiprocEngine.tasks import worker_manager
 
 
 class MultiprocTaskMonitor(TaskMonitor):

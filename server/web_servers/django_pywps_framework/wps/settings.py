@@ -108,7 +108,7 @@ LOGGING = {
         'dj_logfile': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': "/usr/local/wps_cwt/apache/2.4.16/logs/django.log",
+            'filename': "/usr/local/web/CWT/wps_cwt/server/logs/django.log",
             'maxBytes': 50000,
             'backupCount': 2,
             'formatter': 'standard',
