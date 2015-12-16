@@ -30,6 +30,8 @@ class Process(CDASProcess):
             wpsLog.debug( " $$$ CDAS Django-WPS Process,  Request: %s, Operation: %s " % ( str( request ), str(operation) ) )
             response = taskManager.processRequest( request )
             self.result.setValue( response )
+            wpsLog.debug( " $$$ CDAS Django-WPS Process Complete,  Response: %s" % ( str( response ) ) )
+            debug_trace()
         except Exception, err:
              wpsLog.debug( "Exception executing CDAS process:\n " + traceback.format_exc() )
              self.result.setValue( '' )
